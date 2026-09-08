@@ -220,7 +220,10 @@
       recordBtn.disabled = true;
     }
 
-    generateBtn.addEventListener('click', async () => {
+generateBtn.addEventListener('click', async () => {
+      // 1. 若處於冷卻或生成中，直接攔截不動作
+      if (generateBtn.disabled) return;
+
       const payload = {
         age: ageSelect.value,
         mainCharacter: document.getElementById('mainCharacter').value || '小兔子',
@@ -230,8 +233,11 @@
         moral: document.getElementById('moral').value
       };
 
+      // 2. 點擊當下立即鎖定按鈕，防止重複點擊
       generateBtn.disabled = true;
-      generateBtn.innerText = '🪄 故事魔法生成中...';
+      generateBtn.classList.add('opacity-60', 'cursor-not-allowed');
+      generateBtn.classList.remove('hover:from-amber-600', 'hover:to-orange-600');
+      generateBtn.innerHTML = '<span>⏳ 故事魔法編織中，請稍候...</span>';
 
       try {
         const response = await fetch('/api/generate-story', {
@@ -250,8 +256,20 @@
       } catch (err) {
         alert('無法連線到故事伺服器，請確認終端機的伺服器是否正在運行。');
       } finally {
-        generateBtn.disabled = false;
-        generateBtn.innerText = '🪄 召喚 AI 變出星球故事';
+        // 3. 無論成功或失敗，啟動 5 秒防連點倒數冷卻
+        let countdown = 5;
+        const timer = setInterval(() => {
+          if (countdown > 0) {
+            generateBtn.innerHTML = `<span>⏳ 能量冷卻中 (${countdown}s)...</span>`;
+            countdown--;
+          } else {
+            clearInterval(timer);
+            generateBtn.disabled = false;
+            generateBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+            generateBtn.classList.add('hover:from-amber-600', 'hover:to-orange-600');
+            generateBtn.innerHTML = '<span>🪄 召喚 AI 變出星球故事</span>';
+          }
+        }, 1000);
       }
     });
 
