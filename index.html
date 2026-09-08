@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>兒童故事星球</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-amber-50 min-h-screen text-slate-800 font-sans pb-12">
+
+  <header class="bg-white border-b border-amber-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="text-3xl">🪐</span>
+        <h1 class="text-xl font-black text-amber-600 tracking-wide">兒童故事星球</h1>
+      </div>
+      <div class="flex items-center space-x-2">
+        <label for="ageSelect" class="text-sm font-bold text-slate-600">讀者年齡：</label>
+        <select id="ageSelect" class="border-2 border-amber-300 rounded-full px-3 py-1 font-bold text-amber-700 bg-amber-50 focus:outline-none">
+          <option value="4">3 ~ 5 歲 (幼幼繪本)</option>
+          <option value="7" selected>6 ~ 8 歲 (成長童話)</option>
+          <option value="10">9 ~ 12 歲 (解謎小說)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 mt-6">
+
+    <section id="creatorSection" class="bg-white rounded-3xl p-6 shadow-md border border-amber-100 space-y-6">
+      <div class="text-center space-y-1">
+        <h2 class="text-2xl font-black text-slate-800">✨ 創造一個全新的冒險</h2>
+        <p class="text-sm text-slate-500">點選喜歡的卡片，或用麥克風說出你的奇思妙想！</p>
+      </div>
+
+      <div class="bg-amber-100/60 p-4 rounded-2xl flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🎙️</span>
+          <div>
+            <p class="text-sm font-bold text-amber-900">幼童專屬口述模式</p>
+            <p id="speechStatus" class="text-xs text-amber-700">點擊麥克風，直接用說的！</p>
+          </div>
+        </div>
+        <button id="recordBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-full shadow transition-transform active:scale-95 text-sm">
+          開始說話
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-extrabold text-slate-700 mb-2">1. 誰是故事主角？</label>
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="mainCharacter" data-val="軟綿綿的小白兔">🐰 小白兔</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="mainCharacter" data-val="勇敢的探險熊">🐻 探險熊</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="mainCharacter" data-val="噴火小恐龍皮皮">🦖 小恐龍</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="mainCharacter" data-val="小小太空少年">🧑‍🚀 太空人</button>
+          </div>
+          <input type="text" id="mainCharacter" placeholder="或是自己輸入主角名字..." class="mt-2 w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-extrabold text-slate-700 mb-2">2. 冒險好夥伴是誰？</label>
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="companion" data-val="會說話的魔法貓咪">🐱 魔法貓</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="companion" data-val="機器人波比">🤖 機器人</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="companion" data-val="親愛的弟弟">👦 親弟弟</button>
+            <button type="button" class="preset-btn border-2 border-slate-200 rounded-2xl p-2 hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition" data-target="companion" data-val="彩虹獨角獸">🦄 獨角獸</button>
+          </div>
+          <input type="text" id="companion" placeholder="或是輸入夥伴的名字..." class="mt-2 w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-extrabold text-slate-700 mb-2">3. 發生在哪個世界？</label>
+            <input type="text" id="location" value="會唱歌的精靈森林" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm font-extrabold text-slate-700 mb-2">4. 冒險大綱是什麼？</label>
+            <input type="text" id="theme" value="尋找遺失的發光糖果寶藏" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-extrabold text-slate-700 mb-2">5. 這次想學會的超能力（教育核心）：</label>
+          <select id="moral" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none bg-white font-medium">
+            <option value="學會分享與包容">🤝 學會分享與包容</option>
+            <option value="面對未知展現勇氣">🦁 面對未知展現勇氣</option>
+            <option value="團隊合作的力量">🧩 團隊合作的力量</option>
+            <option value="誠實與坦承過錯">💡 誠實與坦承過錯</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black py-4 rounded-2xl shadow-lg transform transition active:scale-98 flex items-center justify-center space-x-2 text-lg">
+        <span>🪄 召喚 AI 變出星球故事</span>
+      </button>
+    </section>
+
+    <section id="readerSection" class="hidden bg-white rounded-3xl p-6 shadow-xl border border-amber-200 space-y-6">
+      <div class="border-b pb-4 flex items-center justify-between">
+        <div>
+          <span id="storyModeBadge" class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded-md">繪本模式</span>
+          <h2 id="storyTitle" class="text-2xl font-black text-slate-800 mt-1">故事加載中...</h2>
+        </div>
+        <button id="shareBtn" class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold px-3 py-2 rounded-xl shadow flex items-center space-x-1">
+          <span>📤 分享故事</span>
+        </button>
+      </div>
+
+      <div id="pictureBookContainer" class="space-y-4">
+        <div class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 min-h-[200px] flex flex-col justify-between">
+          <p id="pageText" class="text-lg md:text-xl font-medium leading-relaxed text-slate-700"></p>
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-400 border-t pt-2">
+            <span id="pageCounter">第 1 頁</span>
+            <span id="imagePromptHint" class="italic truncate max-w-[300px]"></span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <button id="prevPageBtn" class="border border-slate-300 rounded-xl px-4 py-2 font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-30" disabled>上一頁</button>
+          <button id="speakBtn" class="bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-full px-5 py-2 font-black flex items-center space-x-2">
+            <span>🔊 朗讀本頁</span>
+          </button>
+          <button id="nextPageBtn" class="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-4 py-2 font-bold shadow disabled:opacity-30">下一頁</button>
+        </div>
+      </div>
+
+      <div id="interactiveContainer" class="hidden space-y-4">
+        <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+          <h3 id="chapterTitle" class="text-lg font-black text-indigo-950 mb-2"></h3>
+          <p id="chapterContent" class="text-base text-slate-700 leading-relaxed"></p>
+        </div>
+        <div class="space-y-2">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">你的關鍵決策：</p>
+          <div id="choiceButtons" class="flex flex-col space-y-2"></div>
+        </div>
+      </div>
+
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start space-x-3">
+        <span class="text-2xl">🌱</span>
+        <div>
+          <h4 class="text-sm font-bold text-emerald-900">星球啟發叮嚀</h4>
+          <p id="moralSummary" class="text-xs text-emerald-700 mt-0.5 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <button id="backToCreateBtn" class="w-full text-center text-sm font-bold text-slate-400 hover:text-slate-600 py-2">
+        ← 回到工作坊，再做一本新故事
+      </button>
+    </section>
+
+  </main>
+
+  <script>
+    let currentStoryData = null;
+    let currentPageIndex = 0;
+    const synth = window.speechSynthesis;
+
+    const creatorSection = document.getElementById('creatorSection');
+    const readerSection = document.getElementById('readerSection');
+    const generateBtn = document.getElementById('generateBtn');
+    const ageSelect = document.getElementById('ageSelect');
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetInput = document.getElementById(btn.dataset.target);
+        if (targetInput) targetInput.value = btn.dataset.val;
+      });
+    });
+
+    const recordBtn = document.getElementById('recordBtn');
+    const speechStatus = document.getElementById('speechStatus');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'zh-TW';
+      recognition.continuous = false;
+
+      recordBtn.addEventListener('click', () => {
+        try {
+          recognition.start();
+          speechStatus.textContent = '正在傾聽中，請說話...';
+          recordBtn.classList.add('bg-red-500');
+        } catch (e) {
+          recognition.stop();
+        }
+      });
+
+      recognition.onresult = async (event) => {
+        const transcript = event.results[0][0].transcript;
+        speechStatus.textContent = `聽到了：「${transcript}」`;
+        recordBtn.classList.remove('bg-red-500');
+
+        try {
+          const res = await fetch('/api/parse-voice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transcript, age: ageSelect.value })
+          });
+          const result = await res.json();
+          if (result.success && result.data) {
+            const d = result.data;
+            document.getElementById('mainCharacter').value = d.mainCharacter || '';
+            document.getElementById('companion').value = d.companion || '';
+            document.getElementById('location').value = d.location || '';
+            document.getElementById('theme').value = d.theme || '';
+          }
+        } catch (err) {
+          document.getElementById('theme').value = transcript;
+        }
+      };
+
+      recognition.onerror = () => {
+        speechStatus.textContent = '語音辨識中斷，請重試。';
+        recordBtn.classList.remove('bg-red-500');
+      };
+    } else {
+      speechStatus.textContent = '此瀏覽器不支援即時語音，請手動輸入。';
+      recordBtn.disabled = true;
+    }
+
+    generateBtn.addEventListener('click', async () => {
+      const payload = {
+        age: ageSelect.value,
+        mainCharacter: document.getElementById('mainCharacter').value || '小兔子',
+        companion: document.getElementById('companion').value || '好朋友',
+        location: document.getElementById('location').value || '美麗森林',
+        theme: document.getElementById('theme').value || '冒險之旅',
+        moral: document.getElementById('moral').value
+      };
+
+      generateBtn.disabled = true;
+      generateBtn.innerText = '🪄 故事魔法生成中...';
+
+      try {
+        const response = await fetch('/api/generate-story', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const res = await response.json();
+        if (res.success && res.story) {
+          currentStoryData = res.story;
+          renderStoryView(res.story);
+        } else {
+          alert('生成故事失敗，請稍後重試！');
+        }
+      } catch (err) {
+        alert('無法連線到故事伺服器，請確認終端機的伺服器是否正在運行。');
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.innerText = '🪄 召喚 AI 變出星球故事';
+      }
+    });
+
+    function renderStoryView(story) {
+      creatorSection.classList.add('hidden');
+      readerSection.classList.remove('hidden');
+
+      document.getElementById('storyTitle').textContent = story.title;
+      document.getElementById('moralSummary').textContent = story.moralSummary || '學會互相理解與探索。';
+
+      if (story.mode === 'interactive') {
+        document.getElementById('storyModeBadge').textContent = '9-12歲 互動解謎小說';
+        document.getElementById('pictureBookContainer').classList.add('hidden');
+        document.getElementById('interactiveContainer').classList.remove('hidden');
+        renderInteractiveChapter(story.chapters, 'ch1');
+      } else {
+        document.getElementById('storyModeBadge').textContent = '繪本模式';
+        document.getElementById('pictureBookContainer').classList.remove('hidden');
+        document.getElementById('interactiveContainer').classList.add('hidden');
+        currentPageIndex = 0;
+        updatePictureBookPage();
+      }
+    }
+
+    function updatePictureBookPage() {
+      const page = currentStoryData.pages[currentPageIndex];
+      const totalPages = currentStoryData.pages.length;
+
+      document.getElementById('pageText').textContent = page.text;
+      document.getElementById('pageCounter').textContent = `第 ${page.pageNumber || currentPageIndex + 1} 頁 / 共 ${totalPages} 頁`;
+      document.getElementById('imagePromptHint').textContent = `🎨 畫面感：${page.imagePrompt || ''}`;
+
+      document.getElementById('prevPageBtn').disabled = (currentPageIndex === 0);
+      document.getElementById('nextPageBtn').disabled = (currentPageIndex === totalPages - 1);
+    }
+
+    document.getElementById('prevPageBtn').addEventListener('click', () => {
+      if (currentPageIndex > 0) {
+        currentPageIndex--;
+        updatePictureBookPage();
+      }
+    });
+
+    document.getElementById('nextPageBtn').addEventListener('click', () => {
+      if (currentPageIndex < currentStoryData.pages.length - 1) {
+        currentPageIndex++;
+        updatePictureBookPage();
+      }
+    });
+
+    document.getElementById('speakBtn').addEventListener('click', () => {
+      if (!currentStoryData) return;
+      synth.cancel();
+
+      const currentText = currentStoryData.mode === 'interactive' 
+        ? document.getElementById('chapterContent').textContent 
+        : currentStoryData.pages[currentPageIndex].text;
+
+      const utterance = new SpeechSynthesisUtterance(currentText);
+      utterance.lang = 'zh-TW';
+      utterance.rate = 0.9;
+      synth.speak(utterance);
+    });
+
+    function renderInteractiveChapter(chapters, chapterId) {
+      const chapter = chapters.find(c => c.id === chapterId) || chapters[0];
+      document.getElementById('chapterTitle').textContent = chapter.title;
+      document.getElementById('chapterContent').textContent = chapter.content;
+
+      const choiceBox = document.getElementById('choiceButtons');
+      choiceBox.innerHTML = '';
+
+      if (chapter.choices && chapter.choices.length > 0) {
+        chapter.choices.forEach(ch => {
+          const btn = document.createElement('button');
+          btn.className = 'w-full text-left bg-white border-2 border-indigo-200 hover:border-indigo-500 rounded-xl p-3 text-sm font-bold text-indigo-900 transition flex items-center justify-between shadow-sm';
+          btn.innerHTML = `<span>👉 ${ch.text}</span><span class="text-xs text-indigo-400">進入此路線 →</span>`;
+          btn.onclick = () => renderInteractiveChapter(chapters, ch.targetId);
+          choiceBox.appendChild(btn);
+        });
+      } else {
+        choiceBox.innerHTML = '<p class="text-xs text-slate-500 font-bold">🎉 冒險已到達終點！</p>';
+      }
+    }
+
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+      const shareData = {
+        title: currentStoryData ? currentStoryData.title : '兒童故事星球',
+        text: `快來看我和 AI 一起創作的故事！`,
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (e) {}
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('故事連結已複製到剪貼簿！');
+      }
+    });
+
+    document.getElementById('backToCreateBtn').addEventListener('click', () => {
+      synth.cancel();
+      readerSection.classList.add('hidden');
+      creatorSection.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
