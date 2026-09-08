@@ -79,7 +79,7 @@ app.post('/api/generate-story', async (req, res) => {
 
     // 使用正式支援的模型 gemini-3.6-flash
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.6-flash',
       contents: prompt,
       config: { responseMimeType: 'application/json' }
     });
